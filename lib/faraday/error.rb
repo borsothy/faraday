@@ -46,8 +46,13 @@ module Faraday
   class SSLError < ClientError
   end
 
-  [:MissingDependency, :ClientError, :ConnectionFailed, :ResourceNotFound,
-   :ParsingError, :TimeoutError, :SSLError].each do |const|
+
+  class RetriableResponse < ClientError; end
+  
+  [:ClientError, :ConnectionFailed, :ResourceNotFound,
+   :ParsingError, :TimeoutError, :SSLError, :RetriableResponse].each do |const|
     Error.const_set(const, Faraday.const_get(const))
   end
+
+
 end
